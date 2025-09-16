@@ -1,0 +1,137 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0d1117;
+  color: #c9d1d9;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 30%;
+  background: #161b22;
+  padding: 20px;
+  border-right: 1px solid #30363d;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.sidebar h2 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.sidebar input {
+  padding: 10px;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  background: #0d1117;
+  color: #c9d1d9;
+}
+
+.sidebar button {
+  padding: 10px;
+  background: #238636;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.sidebar button:hover {
+  background: #2ea043;
+}
+
+.repo-status {
+  background: #21262d;
+  padding: 15px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.chat-btn {
+  background: #1f6feb;
+  margin-right: 10px;
+}
+
+.delete-btn {
+  background: #da3633;
+}
+
+/* Chat panel */
+.chat-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-header {
+  padding: 15px;
+  background: #161b22;
+  border-bottom: 1px solid #30363d;
+  font-weight: bold;
+}
+
+.chat-box {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.message {
+  padding: 10px 15px;
+  border-radius: 10px;
+  max-width: 70%;
+}
+
+.message.user {
+  background: #238636;
+  align-self: flex-end;
+  color: white;
+}
+
+.message.bot {
+  background: #21262d;
+  align-self: flex-start;
+}
+
+/* Chat input */
+.chat-input {
+  display: flex;
+  border-top: 1px solid #30363d;
+  padding: 10px;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: #0d1117;
+  color: #c9d1d9;
+  border-radius: 6px;
+  margin-right: 10px;
+}
+
+.chat-input button {
+  background: #1f6feb;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+}

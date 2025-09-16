@@ -1,0 +1,14 @@
+PROJECT_RAG/
+├── src/
+│   ├── faiss_index/     
+│   ├── repos/           
+│   ├── app.py
+│   └── rag_utils.py
+├── static/
+│   └── style.css
+├── templates/
+│   └── index.html
+├── myvenv/              
+├── .gitignore
+├── pyvenv.cfg
+└── requirements.txt    

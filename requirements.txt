@@ -1,0 +1,14 @@
+python-dotenv
+GitPython
+langchain
+langchain-community
+langchain-core
+langchain-text-splitters
+langchain-huggingface
+langchain-google-genai
+faiss-cpu
+rank-bm25
+fastapi
+uvicorn
+jinja2
+pydantic

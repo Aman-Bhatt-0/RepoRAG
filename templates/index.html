@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub Repo Chat</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Left Panel -->
+    <div class="sidebar">
+      <h2>Add your GitHub repository</h2>
+      <input type="text" id="repoUrl" placeholder="https://github.com/user/repo">
+      <button onclick="loadRepo()">Load Repository</button>
+
+      <div id="repoStatus" class="repo-status hidden">
+        <p id="repoName"></p>
+        <div class="status-actions">
+          <button class="chat-btn" onclick="enableChat()">Chat</button>
+          <button class="delete-btn" onclick="clearRepo()">🗑</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="chat-panel">
+      <div class="chat-header">Chat with AI Assistant</div>
+      <div id="chatBox" class="chat-box">
+        <div class="message bot">Hello! I’m ready to help you with general questions. You can also add a GitHub repository for more specific help.</div>
+      </div>
+      <div class="chat-input">
+        <input type="text" id="queryInput" placeholder="Ask me anything..." onkeydown="if(event.key==='Enter') sendQuery()">
+        <button onclick="sendQuery()">Send</button>
+      </div>
+    </div>
+  </div>
+<Script>
+    const chatBox = document.getElementById("chatBox");
+let repoLoaded = false;
+
+function appendMessage(sender, text) {
+  const msg = document.createElement("div");
+  msg.classList.add("message", sender);
+  msg.textContent = text;
+  chatBox.appendChild(msg);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+async function loadRepo() {
+  const repoUrl = document.getElementById("repoUrl").value.trim();
+  if (!repoUrl) return alert("Please enter a repo URL");
+
+  // Call backend first
+  const response = await fetch("/load_repo", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ repo_url: repoUrl })
+  });
+
+  const data = await response.json();
+
+  if (data.success) {
+    document.getElementById("repoName").textContent = data.repo_name;
+    document.getElementById("repoStatus").classList.remove("hidden");
+    repoLoaded = true;
+    appendMessage("bot", "✅ Repository loaded successfully. You can now start chatting about it!");
+  } else {
+    alert("❌ Failed to load repository: " + data.error);
+  }
+}
+
+function clearRepo() {
+  document.getElementById("repoStatus").classList.add("hidden");
+  document.getElementById("repoUrl").value = "";
+  repoLoaded = false;
+}
+
+function enableChat() {
+  appendMessage("bot", "✅ Repo chat enabled. Ask me questions about this repo!");
+}
+
+async function sendQuery() {
+  const input = document.getElementById("queryInput");
+  const query = input.value.trim();
+  if (!query) return;
+
+  appendMessage("user", query);
+  input.value = "";
+
+  // Call backend
+  const response = await fetch("/ask", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ query })
+  });
+  const data = await response.json();
+
+  appendMessage("bot", data.answer || "⚠️ No response");
+}
+
+</Script>
+</body>
+</html>
